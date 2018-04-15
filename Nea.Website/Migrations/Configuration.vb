@@ -29,8 +29,8 @@ Namespace Migrations
                 New Band() With {.Name = "Muse"})
             context.Venues.AddOrUpdate(
                 Function(c) c.Id,
-                New Venue() With {.Name = "O2", .NumberOfRows = 26, .SeatsPerRow = 100},
-                New Venue() With {.Name = "G-Live", .NumberOfRows = 5, .SeatsPerRow = 22})
+                New Venue() With {.Name = "O2", .NumberOfRows = 26, .SeatsPerRow = 100, .PriceBandAFirstRow = 1, .PriceBandBFirstRow = 10, .PriceBandCFirstRow = 18},
+                New Venue() With {.Name = "G-Live", .NumberOfRows = 5, .SeatsPerRow = 22, .PriceBandAFirstRow = 1, .PriceBandBFirstRow = 3, .PriceBandCFirstRow = 5})
         End Sub
 
     End Class

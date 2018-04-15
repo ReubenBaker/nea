@@ -15,6 +15,7 @@ Namespace Controllers
         Private db As New ApplicationDbContext
 
         ' GET: Bands
+        <Authorize(Roles:="admin")>
         Function Index() As ActionResult
             Return View(db.Bands.ToList())
         End Function

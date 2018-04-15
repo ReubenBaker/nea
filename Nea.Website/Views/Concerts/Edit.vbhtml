@@ -39,10 +39,26 @@ End Code
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(Function(model) model.CreatedUtc, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            @Html.LabelFor(Function(model) model.BandAPrice, htmlAttributes:= New With { .class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(Function(model) model.CreatedUtc, New With { .htmlAttributes = New With { .class = "form-control" } })
-                @Html.ValidationMessageFor(Function(model) model.CreatedUtc, "", New With { .class = "text-danger" })
+                @Html.EditorFor(Function(model) model.BandAPrice, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.BandAPrice, "", New With { .class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Function(model) model.BandBPrice, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Function(model) model.BandBPrice, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.BandBPrice, "", New With { .class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Function(model) model.BandCPrice, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Function(model) model.BandCPrice, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.BandCPrice, "", New With { .class = "text-danger" })
             </div>
         </div>
 

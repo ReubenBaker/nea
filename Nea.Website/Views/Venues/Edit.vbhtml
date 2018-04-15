@@ -31,6 +31,30 @@ End Code
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(Function(model) model.PriceBandAFirstRow, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Function(model) model.PriceBandAFirstRow, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.PriceBandAFirstRow, "", New With { .class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Function(model) model.PriceBandBFirstRow, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Function(model) model.PriceBandBFirstRow, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.PriceBandBFirstRow, "", New With { .class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(Function(model) model.PriceBandCFirstRow, htmlAttributes:= New With { .class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Function(model) model.PriceBandCFirstRow, New With { .htmlAttributes = New With { .class = "form-control" } })
+                @Html.ValidationMessageFor(Function(model) model.PriceBandCFirstRow, "", New With { .class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(Function(model) model.Name, htmlAttributes:= New With { .class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(Function(model) model.Name, New With { .htmlAttributes = New With { .class = "form-control" } })

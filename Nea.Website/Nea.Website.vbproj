@@ -241,10 +241,10 @@
       <DependentUpon>201804151554436_InitialCreate.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804151554436_InitialCreate.vb" />
-    <Compile Include="Migrations\201804152001380_AddEntities.Designer.vb">
-      <DependentUpon>201804152001380_AddEntities.vb</DependentUpon>
+    <Compile Include="Migrations\201804152053475_AddEntities.Designer.vb">
+      <DependentUpon>201804152053475_AddEntities.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804152001380_AddEntities.vb" />
+    <Compile Include="Migrations\201804152053475_AddEntities.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Identity\AccountViewModels.vb" />
     <Compile Include="Models\ApplicationDbContext.vb" />
@@ -257,7 +257,6 @@
     <Compile Include="Models\Identity\ManageViewModels.vb" />
     <Compile Include="Models\NamedEntity.vb" />
     <Compile Include="Models\Payment.vb" />
-    <Compile Include="Models\Pricing.vb" />
     <Compile Include="Models\Refund.vb" />
     <Compile Include="Models\Seat.vb" />
     <Compile Include="Models\Ticket.vb" />
@@ -284,8 +283,8 @@
     <EmbeddedResource Include="Migrations\201804151554436_InitialCreate.resx">
       <DependentUpon>201804151554436_InitialCreate.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804152001380_AddEntities.resx">
-      <DependentUpon>201804152001380_AddEntities.vb</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804152053475_AddEntities.resx">
+      <DependentUpon>201804152053475_AddEntities.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -343,16 +342,16 @@
     <Content Include="Views\Bands\Details.vbhtml" />
     <Content Include="Views\Bands\Edit.vbhtml" />
     <Content Include="Views\Bands\Index.vbhtml" />
-    <Content Include="Views\Venues\Create.vbhtml" />
-    <Content Include="Views\Venues\Delete.vbhtml" />
-    <Content Include="Views\Venues\Details.vbhtml" />
-    <Content Include="Views\Venues\Edit.vbhtml" />
-    <Content Include="Views\Venues\Index.vbhtml" />
     <Content Include="Views\Concerts\Create.vbhtml" />
     <Content Include="Views\Concerts\Delete.vbhtml" />
     <Content Include="Views\Concerts\Details.vbhtml" />
     <Content Include="Views\Concerts\Edit.vbhtml" />
     <Content Include="Views\Concerts\Index.vbhtml" />
+    <Content Include="Views\Venues\Create.vbhtml" />
+    <Content Include="Views\Venues\Delete.vbhtml" />
+    <Content Include="Views\Venues\Details.vbhtml" />
+    <Content Include="Views\Venues\Edit.vbhtml" />
+    <Content Include="Views\Venues\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

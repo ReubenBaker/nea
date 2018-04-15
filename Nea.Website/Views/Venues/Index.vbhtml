@@ -17,6 +17,15 @@ End Code
             @Html.DisplayNameFor(Function(model) model.SeatsPerRow)
         </th>
         <th>
+            @Html.DisplayNameFor(Function(model) model.PriceBandAFirstRow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Function(model) model.PriceBandBFirstRow)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Function(model) model.PriceBandCFirstRow)
+        </th>
+        <th>
             @Html.DisplayNameFor(Function(model) model.Name)
         </th>
         <th>
@@ -32,6 +41,15 @@ End Code
         </td>
         <td>
             @Html.DisplayFor(Function(modelItem) item.SeatsPerRow)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.PriceBandAFirstRow)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.PriceBandBFirstRow)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.PriceBandCFirstRow)
         </td>
         <td>
             @Html.DisplayFor(Function(modelItem) item.Name)

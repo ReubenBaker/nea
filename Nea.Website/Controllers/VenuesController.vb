@@ -41,7 +41,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Create(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
+        Function Create(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
                 db.Venues.Add(venue)
                 db.SaveChanges()
@@ -67,7 +67,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
+        Function Edit(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
                 db.Entry(venue).State = EntityState.Modified
                 db.SaveChanges()

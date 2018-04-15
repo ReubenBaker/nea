@@ -35,11 +35,27 @@ End Code
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(Function(model) model.CreatedUtc)
+            @Html.DisplayNameFor(Function(model) model.BandAPrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(Function(model) model.CreatedUtc)
+            @Html.DisplayFor(Function(model) model.BandAPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(Function(model) model.BandBPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.BandBPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(Function(model) model.BandCPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.BandCPrice)
         </dd>
 
         <dt>

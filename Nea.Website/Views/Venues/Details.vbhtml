@@ -26,6 +26,30 @@ End Code
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(Function(model) model.PriceBandAFirstRow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.PriceBandAFirstRow)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(Function(model) model.PriceBandBFirstRow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.PriceBandBFirstRow)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(Function(model) model.PriceBandCFirstRow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(Function(model) model.PriceBandCFirstRow)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(Function(model) model.Name)
         </dt>
 

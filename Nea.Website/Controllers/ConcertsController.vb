@@ -44,7 +44,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Create(<Bind(Include:="Id,Time,BandId,VenueId,CreatedUtc,Timestamp")> ByVal concert As Concert) As ActionResult
+        Function Create(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
                 db.Concerts.Add(concert)
                 db.SaveChanges()
@@ -56,6 +56,7 @@ Namespace Controllers
         End Function
 
         ' GET: Concerts/Edit/5
+        <Authorize(Roles:="admin")>
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -74,7 +75,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Id,Time,BandId,VenueId,CreatedUtc,Timestamp")> ByVal concert As Concert) As ActionResult
+        Function Edit(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
                 db.Entry(concert).State = EntityState.Modified
                 db.SaveChanges()

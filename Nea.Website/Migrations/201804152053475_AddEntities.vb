@@ -13,7 +13,6 @@ Namespace Migrations
                     {
                         .Id = c.Int(nullable := False, identity := True),
                         .Name = c.String(nullable := False, maxLength := 100),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
                     }) _
                 .PrimaryKey(Function(t) t.Id) _
@@ -26,7 +25,6 @@ Namespace Migrations
                         .Id = c.Int(nullable := False, identity := True),
                         .BookingMadeUtc = c.DateTime(nullable := False),
                         .CustomerId = c.Int(nullable := False),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
                     }) _
                 .PrimaryKey(Function(t) t.Id) _
@@ -39,7 +37,6 @@ Namespace Migrations
                     {
                         .Id = c.Int(nullable := False, identity := True),
                         .Name = c.String(nullable := False, maxLength := 100),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
                     }) _
                 .PrimaryKey(Function(t) t.Id) _
@@ -51,7 +48,6 @@ Namespace Migrations
                     {
                         .Id = c.Int(nullable := False, identity := True),
                         .Amount = c.Decimal(nullable := False, precision := 18, scale := 2),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion"),
                         .Booking_Id = c.Int()
                     }) _
@@ -65,7 +61,6 @@ Namespace Migrations
                     {
                         .Id = c.Int(nullable := False, identity := True),
                         .Amount = c.Decimal(nullable := False, precision := 18, scale := 2),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion"),
                         .Booking_Id = c.Int()
                     }) _
@@ -81,8 +76,6 @@ Namespace Migrations
                         .ConcertId = c.Int(nullable := False),
                         .Seat_Row = c.String(nullable := False),
                         .Seat_NumberInRow = c.Int(nullable := False),
-                        .Price = c.Decimal(nullable := False, precision := 18, scale := 2),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion"),
                         .Booking_Id = c.Int()
                     }) _
@@ -100,7 +93,9 @@ Namespace Migrations
                         .Time = c.DateTime(nullable := False),
                         .BandId = c.Int(nullable := False),
                         .VenueId = c.Int(nullable := False),
-                        .CreatedUtc = c.DateTime(nullable := False),
+                        .BandAPrice = c.Decimal(nullable := False, precision := 18, scale := 2),
+                        .BandBPrice = c.Decimal(nullable := False, precision := 18, scale := 2),
+                        .BandCPrice = c.Decimal(nullable := False, precision := 18, scale := 2),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
                     }) _
                 .PrimaryKey(Function(t) t.Id) _
@@ -116,24 +111,14 @@ Namespace Migrations
                         .Id = c.Int(nullable := False, identity := True),
                         .NumberOfRows = c.Int(nullable := False),
                         .SeatsPerRow = c.Int(nullable := False),
+                        .PriceBandAFirstRow = c.Int(nullable := False),
+                        .PriceBandBFirstRow = c.Int(nullable := False),
+                        .PriceBandCFirstRow = c.Int(nullable := False),
                         .Name = c.String(nullable := False, maxLength := 100),
-                        .CreatedUtc = c.DateTime(nullable := False),
                         .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
                     }) _
                 .PrimaryKey(Function(t) t.Id) _
                 .Index(Function(t) t.Name, unique := True)
-            
-            CreateTable(
-                "dbo.Pricings",
-                Function(c) New With
-                    {
-                        .Id = c.Int(nullable := False, identity := True),
-                        .Row = c.Int(nullable := False),
-                        .Price = c.Decimal(nullable := False, precision := 18, scale := 2),
-                        .CreatedUtc = c.DateTime(nullable := False),
-                        .Timestamp = c.Binary(nullable := False, fixedLength := true, timestamp := True, storeType := "rowversion")
-                    }) _
-                .PrimaryKey(Function(t) t.Id)
             
         End Sub
         
@@ -155,7 +140,6 @@ Namespace Migrations
             DropIndex("dbo.Customers", New String() { "Name" })
             DropIndex("dbo.Bookings", New String() { "CustomerId" })
             DropIndex("dbo.Bands", New String() { "Name" })
-            DropTable("dbo.Pricings")
             DropTable("dbo.Venues")
             DropTable("dbo.Concerts")
             DropTable("dbo.Tickets")

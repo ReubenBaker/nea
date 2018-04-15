@@ -18,6 +18,5 @@ Public Class ApplicationDbContext
     Public Property Customers As DbSet(Of Customer)
     Public Property Bookings As DbSet(Of Booking)
     Public Property Payments As DbSet(Of Payment)
-    Public Property Pricings As DbSet(Of Pricing)
     Public Property Refunds As DbSet(Of Refund)
 End Class

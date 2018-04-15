@@ -11,7 +11,4 @@ Public Class Ticket
 
     <Required>
     Public Property Seat As Seat
-
-    <Required>
-    Public Property Price As Decimal
 End Class

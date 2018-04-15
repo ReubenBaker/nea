@@ -20,7 +20,13 @@ End Code
             @Html.DisplayNameFor(Function(model) model.Time)
         </th>
         <th>
-            @Html.DisplayNameFor(Function(model) model.CreatedUtc)
+            @Html.DisplayNameFor(Function(model) model.BandAPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Function(model) model.BandBPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(Function(model) model.BandCPrice)
         </th>
         <th>
             @Html.DisplayNameFor(Function(model) model.Timestamp)
@@ -40,7 +46,13 @@ End Code
             @Html.DisplayFor(Function(modelItem) item.Time)
         </td>
         <td>
-            @Html.DisplayFor(Function(modelItem) item.CreatedUtc)
+            @Html.DisplayFor(Function(modelItem) item.BandAPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.BandBPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(Function(modelItem) item.BandCPrice)
         </td>
         <td>
             @Html.DisplayFor(Function(modelItem) item.Timestamp)
