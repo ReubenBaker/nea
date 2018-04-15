@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Nea.Website", "Nea.Website\Nea.Website.vbproj", "{AB1CF111-8B3D-4464-9DB8-D06F316CE60F}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Nea.Website.Tests", "Nea.Website.Tests\Nea.Website.Tests.vbproj", "{EA67BF19-B918-4E97-AF2B-8B987B36C5EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB1CF111-8B3D-4464-9DB8-D06F316CE60F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1CF111-8B3D-4464-9DB8-D06F316CE60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1CF111-8B3D-4464-9DB8-D06F316CE60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1CF111-8B3D-4464-9DB8-D06F316CE60F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA67BF19-B918-4E97-AF2B-8B987B36C5EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA67BF19-B918-4E97-AF2B-8B987B36C5EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA67BF19-B918-4E97-AF2B-8B987B36C5EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA67BF19-B918-4E97-AF2B-8B987B36C5EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA053BB4-9EBE-47E6-880A-824138F6395F}
+	EndGlobalSection
+EndGlobal
