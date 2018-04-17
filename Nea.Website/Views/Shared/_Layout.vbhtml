@@ -22,10 +22,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @If User.IsInRole("admin") Then
-                        @<li>@Html.ActionLink("Bands", "Index", "Bands")</li>
-                        @<li>@Html.ActionLink("Venues", "Index", "Venues")</li>
-                    End If
+                    <li>@Html.ActionLink("Bands", "Index", "Bands")</li>
+                    <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
                     <li>@Html.ActionLink("Concerts", "Index", "Concerts")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -35,15 +33,15 @@
         </div>
     </div>
     <div Class="container body-content">
-                @RenderBody()
+        @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Reuben Baker</p>
         </footer>
     </div>
 
-                @Scripts.Render("~/bundles/jquery")
-                @Scripts.Render("~/bundles/bootstrap")
-                @RenderSection("scripts", required:=False)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required:=False)
 </body>
 </html>

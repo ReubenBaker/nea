@@ -1,16 +1,9 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Data
-Imports System.Data.Entity
-Imports System.Linq
+﻿Imports System.Data.Entity
 Imports System.Net
-Imports System.Web
-Imports System.Web.Mvc
-Imports Nea.Website
 
 Namespace Controllers
     Public Class ConcertsController
-        Inherits System.Web.Mvc.Controller
+        Inherits Controller
 
         Private db As New ApplicationDbContext
 
@@ -33,6 +26,7 @@ Namespace Controllers
         End Function
 
         ' GET: Concerts/Create
+        <Authorize(Roles:="admin")>
         Function Create() As ActionResult
             ViewBag.BandId = New SelectList(db.Bands, "Id", "Name")
             ViewBag.VenueId = New SelectList(db.Venues, "Id", "Name")
@@ -44,6 +38,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function Create(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
                 db.Concerts.Add(concert)
@@ -75,6 +70,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function Edit(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
                 db.Entry(concert).State = EntityState.Modified
@@ -87,6 +83,7 @@ Namespace Controllers
         End Function
 
         ' GET: Concerts/Delete/5
+        <Authorize(Roles:="admin")>
         Function Delete(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -102,11 +99,17 @@ Namespace Controllers
         <HttpPost()>
         <ActionName("Delete")>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function DeleteConfirmed(ByVal id As Integer) As ActionResult
             Dim concert As Concert = db.Concerts.Find(id)
             db.Concerts.Remove(concert)
             db.SaveChanges()
             Return RedirectToAction("Index")
+        End Function
+
+        ' GET: Concerts/Book/5
+        Function Book(ByVal id As Integer) As ActionResult
+            Return RedirectToAction("Create", "Bookings", New With {.concertId = id})
         End Function
 
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)

@@ -20,7 +20,7 @@
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -231,6 +231,7 @@
     <Compile Include="App_Start\WebApiConfig.vb" />
     <Compile Include="Controllers\AccountController.vb" />
     <Compile Include="Controllers\BandsController.vb" />
+    <Compile Include="Controllers\BookingsController.vb" />
     <Compile Include="Controllers\ConcertsController.vb" />
     <Compile Include="Controllers\ManageController.vb" />
     <Compile Include="Controllers\VenuesController.vb" />
@@ -245,13 +246,21 @@
       <DependentUpon>201804152053475_AddEntities.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804152053475_AddEntities.vb" />
+    <Compile Include="Migrations\201804171956096_ChangeCustomerToUserName.Designer.vb">
+      <DependentUpon>201804171956096_ChangeCustomerToUserName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804171956096_ChangeCustomerToUserName.vb" />
+    <Compile Include="Migrations\201804172102477_MoveConcertFromTicketToBooking.Designer.vb">
+      <DependentUpon>201804172102477_MoveConcertFromTicketToBooking.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804172102477_MoveConcertFromTicketToBooking.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\BookingViewModel.vb" />
     <Compile Include="Models\Identity\AccountViewModels.vb" />
     <Compile Include="Models\ApplicationDbContext.vb" />
     <Compile Include="Models\Band.vb" />
     <Compile Include="Models\Booking.vb" />
     <Compile Include="Models\Concert.vb" />
-    <Compile Include="Models\Customer.vb" />
     <Compile Include="Models\Entity.vb" />
     <Compile Include="Models\Identity\IdentityModels.vb" />
     <Compile Include="Models\Identity\ManageViewModels.vb" />
@@ -285,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804152053475_AddEntities.resx">
       <DependentUpon>201804152053475_AddEntities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804171956096_ChangeCustomerToUserName.resx">
+      <DependentUpon>201804171956096_ChangeCustomerToUserName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804172102477_MoveConcertFromTicketToBooking.resx">
+      <DependentUpon>201804172102477_MoveConcertFromTicketToBooking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -352,6 +367,11 @@
     <Content Include="Views\Venues\Details.vbhtml" />
     <Content Include="Views\Venues\Edit.vbhtml" />
     <Content Include="Views\Venues\Index.vbhtml" />
+    <Content Include="Views\Bookings\Create.vbhtml" />
+    <Content Include="Views\Bookings\Delete.vbhtml" />
+    <Content Include="Views\Bookings\Details.vbhtml" />
+    <Content Include="Views\Bookings\Edit.vbhtml" />
+    <Content Include="Views\Bookings\Index.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -403,7 +423,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52302</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52302/</IISUrl>
+          <IISUrl>http://localhost/nea</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

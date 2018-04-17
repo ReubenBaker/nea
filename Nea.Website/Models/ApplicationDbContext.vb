@@ -15,7 +15,6 @@ Public Class ApplicationDbContext
     Public Property Bands As DbSet(Of Band)
     Public Property Venues As DbSet(Of Venue)
     Public Property Tickets As DbSet(Of Ticket)
-    Public Property Customers As DbSet(Of Customer)
     Public Property Bookings As DbSet(Of Booking)
     Public Property Payments As DbSet(Of Payment)
     Public Property Refunds As DbSet(Of Refund)

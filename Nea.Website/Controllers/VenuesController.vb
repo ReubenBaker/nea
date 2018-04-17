@@ -1,16 +1,9 @@
-﻿Imports System
-Imports System.Collections.Generic
-Imports System.Data
-Imports System.Data.Entity
-Imports System.Linq
+﻿Imports System.Data.Entity
 Imports System.Net
-Imports System.Web
-Imports System.Web.Mvc
-Imports Nea.Website
 
 Namespace Controllers
     Public Class VenuesController
-        Inherits System.Web.Mvc.Controller
+        Inherits Controller
 
         Private db As New ApplicationDbContext
 
@@ -32,6 +25,7 @@ Namespace Controllers
         End Function
 
         ' GET: Venues/Create
+        <Authorize(Roles:="admin")>
         Function Create() As ActionResult
             Return View()
         End Function
@@ -41,6 +35,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function Create(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
                 db.Venues.Add(venue)
@@ -51,6 +46,7 @@ Namespace Controllers
         End Function
 
         ' GET: Venues/Edit/5
+        <Authorize(Roles:="admin")>
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -67,6 +63,7 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function Edit(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
                 db.Entry(venue).State = EntityState.Modified
@@ -77,6 +74,7 @@ Namespace Controllers
         End Function
 
         ' GET: Venues/Delete/5
+        <Authorize(Roles:="admin")>
         Function Delete(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -92,6 +90,7 @@ Namespace Controllers
         <HttpPost()>
         <ActionName("Delete")>
         <ValidateAntiForgeryToken()>
+        <Authorize(Roles:="admin")>
         Function DeleteConfirmed(ByVal id As Integer) As ActionResult
             Dim venue As Venue = db.Venues.Find(id)
             db.Venues.Remove(venue)

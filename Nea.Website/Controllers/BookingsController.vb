@@ -2,98 +2,97 @@
 Imports System.Net
 
 Namespace Controllers
-    Public Class BandsController
+    <Authorize>
+    Public Class BookingsController
         Inherits Controller
 
         Private db As New ApplicationDbContext
 
-        ' GET: Bands
+        ' GET: Bookings
         Function Index() As ActionResult
-            Return View(db.Bands.ToList())
+            Dim bookings = db.Bookings
+            Return View(bookings.ToList())
         End Function
 
-        ' GET: Bands/Details/5
+        ' GET: Bookings/Details/5
         Function Details(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim band As Band = db.Bands.Find(id)
-            If IsNothing(band) Then
+            Dim booking As Booking = db.Bookings.Find(id)
+            If IsNothing(booking) Then
                 Return HttpNotFound()
             End If
-            Return View(band)
+            Return View(booking)
         End Function
 
-        ' GET: Bands/Create
-        <Authorize(Roles:="admin")>
-        Function Create() As ActionResult
-            Return View()
-        End Function
+        ' GET: Bookings/Create
+        Function Create(ByVal concertId As Integer) As ActionResult
+            Dim booking As New Booking With {
+                .Id = 0,
+                .ConcertId = concertId,
+                .BookingMadeUtc = DateTime.UtcNow,
+                .UserName = User.Identity.Name
+            }
 
-        ' POST: Bands/Create
-        'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        <HttpPost()>
-        <ValidateAntiForgeryToken()>
-        <Authorize(Roles:="admin")>
-        Function Create(<Bind(Include:="Id,Name")> ByVal band As Band) As ActionResult
+            TryValidateModel(booking)
+
             If ModelState.IsValid Then
-                db.Bands.Add(band)
+                db.Bookings.Add(booking)
                 db.SaveChanges()
-                Return RedirectToAction("Index")
+                Return RedirectToAction("Edit", "Bookings", New With {booking.Id})
             End If
-            Return View(band)
+            Return View(booking)
         End Function
 
-        ' GET: Bands/Edit/5
-        <Authorize(Roles:="admin")>
+        ' GET: Bookings/Edit/5
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim band As Band = db.Bands.Find(id)
-            If IsNothing(band) Then
+            Dim booking As Booking = db.Bookings.Find(id)
+            If IsNothing(booking) Then
                 Return HttpNotFound()
             End If
-            Return View(band)
+
+            Dim concert As Concert = db.Concerts.Include(Function(c) c.Venue).First(Function(x) x.Id)
+
+            Return View(New BookingViewModel With {.Booking = booking, .Venue = concert.Venue})
         End Function
 
-        ' POST: Bands/Edit/5
+        ' POST: Bookings/Edit/5
         'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        <Authorize(Roles:="admin")>
-        Function Edit(<Bind(Include:="Id,Name")> ByVal band As Band) As ActionResult
+        Function Edit(<Bind(Include:="Id,Timestamp")> ByVal booking As Booking) As ActionResult
             If ModelState.IsValid Then
-                db.Entry(band).State = EntityState.Modified
+                db.Entry(booking).State = EntityState.Modified
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If
-            Return View(band)
+            Return View(booking)
         End Function
 
-        ' GET: Bands/Delete/5
-        <Authorize(Roles:="admin")>
+        ' GET: Bookings/Delete/5
         Function Delete(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim band As Band = db.Bands.Find(id)
-            If IsNothing(band) Then
+            Dim booking As Booking = db.Bookings.Find(id)
+            If IsNothing(booking) Then
                 Return HttpNotFound()
             End If
-            Return View(band)
+            Return View(booking)
         End Function
 
-        ' POST: Bands/Delete/5
+        ' POST: Bookings/Delete/5
         <HttpPost()>
         <ActionName("Delete")>
         <ValidateAntiForgeryToken()>
-        <Authorize(Roles:="admin")>
         Function DeleteConfirmed(ByVal id As Integer) As ActionResult
-            Dim band As Band = db.Bands.Find(id)
-            db.Bands.Remove(band)
+            Dim booking As Booking = db.Bookings.Find(id)
+            db.Bookings.Remove(booking)
             db.SaveChanges()
             Return RedirectToAction("Index")
         End Function

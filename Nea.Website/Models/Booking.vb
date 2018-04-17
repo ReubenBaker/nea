@@ -5,12 +5,15 @@ Public Class Booking
     Inherits Entity
 
     <Required>
+    Public Property ConcertId As Integer
+    <ForeignKey("ConcertId")>
+    Public Property Concert As Concert
+
+    <Required>
     Public Property BookingMadeUtc As DateTime
 
     <Required>
-    Public Property CustomerId As Integer
-    <ForeignKey("CustomerId")>
-    Public Property Customer As Customer
+    Public Property UserName As String
 
     Public Overridable Property Tickets As List(Of Ticket)
 

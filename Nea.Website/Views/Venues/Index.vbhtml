@@ -1,14 +1,16 @@
 ﻿@ModelType IEnumerable(Of Nea.Website.Venue)
 @Code
-ViewData("Title") = "Index"
+    ViewData("Title") = "Index"
 End Code
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @If User.IsInRole("admin") Then
+        @Html.ActionLink("Create New", "Create")
+    End If
 </p>
-<table class="table">
+<Table Class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(Function(model) model.NumberOfRows)
@@ -34,35 +36,39 @@ End Code
         <th></th>
     </tr>
 
-@For Each item In Model
-    @<tr>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.NumberOfRows)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.SeatsPerRow)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.PriceBandAFirstRow)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.PriceBandBFirstRow)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.PriceBandCFirstRow)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(Function(modelItem) item.Timestamp)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", New With {.id = item.Id }) |
-            @Html.ActionLink("Details", "Details", New With {.id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", New With {.id = item.Id })
-        </td>
-    </tr>
-Next
+    @For Each item In Model
+        @<tr>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.NumberOfRows)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.SeatsPerRow)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.PriceBandAFirstRow)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.PriceBandBFirstRow)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.PriceBandCFirstRow)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(Function(modelItem) item.Timestamp)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", New With {.id = item.Id})
+                @If User.IsInRole("admin") Then
+                    @<span>|</span>
+                    @Html.ActionLink("Edit", "Edit", New With {.id = item.Id})
+                    @<span>|</span>
+                    @Html.ActionLink("Delete", "Delete", New With {.id = item.Id})
+                End If
+            </td>
+        </tr>
+    Next
 
-</table>
+</Table>
