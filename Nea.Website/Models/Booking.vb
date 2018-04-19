@@ -15,7 +15,7 @@ Public Class Booking
     <Required>
     Public Property UserName As String
 
-    Public Overridable Property Tickets As List(Of Ticket)
+    Public Overridable Property Seats As List(Of BookingSeat)
 
     Public Overridable Property Payments As List(Of Payment)
 

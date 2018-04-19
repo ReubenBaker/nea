@@ -50,12 +50,12 @@ Namespace Controllers
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
             End If
-            Dim booking As Booking = db.Bookings.Find(id)
+            Dim booking As Booking = db.Bookings.Include(Function(c) c.Seats).First(Function(x) x.Id = id)
             If IsNothing(booking) Then
                 Return HttpNotFound()
             End If
 
-            Dim concert As Concert = db.Concerts.Include(Function(c) c.Venue).First(Function(x) x.Id)
+            Dim concert As Concert = db.Concerts.Include(Function(c) c.Venue).First(Function(x) x.Id = booking.ConcertId)
 
             Return View(New BookingViewModel With {.Booking = booking, .Venue = concert.Venue})
         End Function

@@ -17,18 +17,32 @@ End Code
         @Html.HiddenFor(Function(model) model.Booking.BookingMadeUtc)
 
         <div Class="form-group">
-            @Model.Venue.Name
+            <table>
+                @For row As Integer = 1 To Model.Venue.NumberOfRows
+                    @<tr>
+                        @For col As Integer = 1 To Model.Venue.SeatsPerRow
+                            @<td>
+                                <div Class="col-md-offset-2@(If(Model.Booking.Seats.Any(Function(s) s.Row = row And s.NumberInRow = col), " reserved", ""))">
+                                    <span Class="btn btn-default@(If(Model.Booking.Seats.Any(Function(s) s.Row = row And s.NumberInRow = col), " reserved", ""))">
+                                        @(Chr(Asc("A") + row - 1) & col)
+                                    </span>
+                                </div>
+                            </td>
+                        Next
+                    </tr>
+                Next
+            </table>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+        <div Class="form-group">
+            <div Class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" Class="btn btn-default" />
             </div>
         </div>
     </div>
 End Using
 
-                        <div>
+<div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
