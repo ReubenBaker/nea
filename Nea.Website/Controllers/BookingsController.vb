@@ -57,7 +57,9 @@ Namespace Controllers
 
             Dim concert As Concert = db.Concerts.Include(Function(c) c.Venue).First(Function(x) x.Id = booking.ConcertId)
 
-            Return View(New BookingViewModel With {.Booking = booking, .Venue = concert.Venue})
+            Dim allocatedSeats As List(Of BookingSeat) = db.Seats.Where(Function(x) x.Booking.ConcertId = booking.ConcertId).ToList
+
+            Return View(New BookingViewModel With {.Booking = booking, .Venue = concert.Venue, .AllocatedSeats = allocatedSeats, .Stuff = "abc"})
         End Function
 
         ' POST: Bookings/Edit/5
@@ -65,9 +67,9 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Id,Timestamp")> ByVal booking As Booking) As ActionResult
+        Function Edit(<Bind(Include:="Id,Timestamp,Booking,Venue,AllocatedSeats,Stuff")> ByVal booking As BookingViewModel) As ActionResult
             If ModelState.IsValid Then
-                db.Entry(booking).State = EntityState.Modified
+                db.Entry(booking.Booking).State = EntityState.Modified
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If
