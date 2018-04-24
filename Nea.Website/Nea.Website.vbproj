@@ -262,7 +262,12 @@
       <DependentUpon>201804182102086_ChangeSeatsModel.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804182102086_ChangeSeatsModel.vb" />
+    <Compile Include="Migrations\201804242042124_ChangeBookingSeatRowFromStringToInteger.Designer.vb">
+      <DependentUpon>201804242042124_ChangeBookingSeatRowFromStringToInteger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804242042124_ChangeBookingSeatRowFromStringToInteger.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\BookingSeat.vb" />
     <Compile Include="Models\BookingViewModel.vb" />
     <Compile Include="Models\Identity\AccountViewModels.vb" />
     <Compile Include="Models\ApplicationDbContext.vb" />
@@ -275,7 +280,6 @@
     <Compile Include="Models\NamedEntity.vb" />
     <Compile Include="Models\Payment.vb" />
     <Compile Include="Models\Refund.vb" />
-    <Compile Include="Models\Seat.vb" />
     <Compile Include="Models\Venue.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -313,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804182102086_ChangeSeatsModel.resx">
       <DependentUpon>201804182102086_ChangeSeatsModel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804242042124_ChangeBookingSeatRowFromStringToInteger.resx">
+      <DependentUpon>201804242042124_ChangeBookingSeatRowFromStringToInteger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

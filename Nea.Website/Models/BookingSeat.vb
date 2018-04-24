@@ -10,7 +10,7 @@ Public Class BookingSeat
     Public Property Booking As Booking
 
     <Required>
-    Public Property Row As String
+    Public Property Row As Integer
 
     <Required>
     Public Property NumberInRow As Integer

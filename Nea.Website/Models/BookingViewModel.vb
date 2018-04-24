@@ -6,5 +6,5 @@
 
     Public Property AllocatedSeats As List(Of BookingSeat)
 
-    Public Property Stuff As String
+    Public Property ChosenSeatsCsv As String
 End Class

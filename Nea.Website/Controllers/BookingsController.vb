@@ -1,5 +1,6 @@
 ﻿Imports System.Data.Entity
 Imports System.Net
+Imports System.Web.Http
 
 Namespace Controllers
     <Authorize>
@@ -40,12 +41,14 @@ Namespace Controllers
             If ModelState.IsValid Then
                 db.Bookings.Add(booking)
                 db.SaveChanges()
-                Return RedirectToAction("Edit", "Bookings", New With {booking.Id})
+                Return Edit(booking.Id)
+                'Return RedirectToAction("Edit", "Bookings", New RouteValueDictionary(New With {.id = booking.Id}))
             End If
             Return View(booking)
         End Function
 
         ' GET: Bookings/Edit/5
+        <HttpGet()>
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -59,7 +62,7 @@ Namespace Controllers
 
             Dim allocatedSeats As List(Of BookingSeat) = db.Seats.Where(Function(x) x.Booking.ConcertId = booking.ConcertId).ToList
 
-            Return View(New BookingViewModel With {.Booking = booking, .Venue = concert.Venue, .AllocatedSeats = allocatedSeats, .Stuff = "abc"})
+            Return View("Edit", New BookingViewModel With {.Booking = booking, .Venue = concert.Venue, .AllocatedSeats = allocatedSeats, .ChosenSeatsCsv = ""})
         End Function
 
         ' POST: Bookings/Edit/5
@@ -67,13 +70,17 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Id,Timestamp,Booking,Venue,AllocatedSeats,Stuff")> ByVal booking As BookingViewModel) As ActionResult
-            If ModelState.IsValid Then
-                db.Entry(booking.Booking).State = EntityState.Modified
+        Function Edit(<Bind(Include:="Booking.Id,ChosenSeatsCsv")> ByVal bookingViewModel As BookingViewModel) As ActionResult
+            Dim chosenSeats As List(Of String) = bookingViewModel.ChosenSeatsCsv.Split(",").ToList()
+
+            If chosenSeats.Any() Then
+                ' Add newly chosen seats to the booking
+                Dim bookingSeats As List(Of BookingSeat) = chosenSeats.Select(Function(x) New BookingSeat With {.BookingId = bookingViewModel.Booking.Id, .Row = Asc(x(0)) - Asc("A"), .NumberInRow = Integer.Parse(x.Substring(1))})
+                db.Seats.AddRange(bookingSeats)
                 db.SaveChanges()
-                Return RedirectToAction("Index")
             End If
-            Return View(booking)
+
+            Return RedirectToAction("Edit", New With {bookingViewModel.Booking.Id})
         End Function
 
         ' GET: Bookings/Delete/5

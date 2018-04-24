@@ -16,8 +16,7 @@ End Code
     @Html.HiddenFor(Function(model) model.Booking.Id)
     @Html.HiddenFor(Function(model) model.Booking.UserName)
     @Html.HiddenFor(Function(model) model.Booking.BookingMadeUtc)
-    @Html.HiddenFor(Function(model) model.Booking.Seats)
-    @Html.HiddenFor(Function(model) model.Stuff)
+    @Html.HiddenFor(Function(model) model.ChosenSeatsCsv)
 
     <div Class="form-group">
         <table>
