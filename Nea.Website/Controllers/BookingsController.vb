@@ -41,14 +41,12 @@ Namespace Controllers
             If ModelState.IsValid Then
                 db.Bookings.Add(booking)
                 db.SaveChanges()
-                Return Edit(booking.Id)
-                'Return RedirectToAction("Edit", "Bookings", New RouteValueDictionary(New With {.id = booking.Id}))
+                Return RedirectToAction("Edit", New With {booking.Id})
             End If
             Return View(booking)
         End Function
 
         ' GET: Bookings/Edit/5
-        <HttpGet()>
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)

@@ -38,3 +38,9 @@ textarea {
     background-color: lightgray;
     border-color: #cccccc;
 }
+
+.chosen {
+    color: black;
+    border-color: blue;
+    background-color: lightblue;
+}
