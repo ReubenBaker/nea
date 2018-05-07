@@ -60,7 +60,15 @@ Namespace Controllers
 
             Dim allocatedSeats As List(Of BookingSeat) = db.Seats.Where(Function(x) x.Booking.ConcertId = booking.ConcertId).ToList
 
-            Return View("Edit", New BookingViewModel With {.Booking = booking, .Venue = concert.Venue, .AllocatedSeats = allocatedSeats, .ChosenSeatsCsv = ""})
+            Return View("Edit", New BookingViewModel With {
+                        .BookingId = booking.Id,
+                        .Venue = concert.Venue,
+                        .AllocatedSeats = allocatedSeats,
+                        .ChosenSeatsCsv = "",
+                        .BandAPrice = concert.BandAPrice,
+                        .BandBPrice = concert.BandBPrice,
+                        .BandCPrice = concert.BandCPrice
+                        })
         End Function
 
         ' POST: Bookings/Edit/5
@@ -68,17 +76,24 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit(<Bind(Include:="Booking.Id,ChosenSeatsCsv")> ByVal bookingViewModel As BookingViewModel) As ActionResult
+        Function Edit2(<Bind(Include:="BookingId,ChosenSeatsCsv")> ByVal bookingViewModel As BookingViewModel) As ActionResult
             Dim chosenSeats As List(Of String) = bookingViewModel.ChosenSeatsCsv.Split(",").ToList()
 
             If chosenSeats.Any() Then
                 ' Add newly chosen seats to the booking
-                Dim bookingSeats As List(Of BookingSeat) = chosenSeats.Select(Function(x) New BookingSeat With {.BookingId = bookingViewModel.Booking.Id, .Row = Asc(x(0)) - Asc("A"), .NumberInRow = Integer.Parse(x.Substring(1))})
+                Dim bookingSeats As List(Of BookingSeat) = chosenSeats _
+                    .Select(Function(x) x.Split("-")) _
+                    .Select(Function(x) New BookingSeat With {
+                        .BookingId = bookingViewModel.BookingId,
+                        .Row = x(0),
+                        .NumberInRow = x(1)
+                        }) _
+                    .ToList()
                 db.Seats.AddRange(bookingSeats)
                 db.SaveChanges()
             End If
 
-            Return RedirectToAction("Edit", New With {bookingViewModel.Booking.Id})
+            Return RedirectToAction("Edit", New With {.id = bookingViewModel.BookingId})
         End Function
 
         ' GET: Bookings/Delete/5
