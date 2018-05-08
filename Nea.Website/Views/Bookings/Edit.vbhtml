@@ -16,31 +16,15 @@ End Code
     @Html.AntiForgeryToken()
 
     @<div class="form-horizontal">
-
-        <script language="javascript">
-            function CollectNewChosenSeats() {
-                var price = 0.0;
-                var chosen = [];
-                $("span").each(function () {
-                    if ($(this).hasClass("chosen") && $(this).attr("price") != null) {
-                        chosen.push($(this).attr('id'));
-                        price += parseFloat($(this).attr('price'));
-                    }
-                });
-
-                $("#chosenPrice").html("£" + price.toFixed(2));
-                $("input[type=hidden][name=ChosenSeatsCsv]").val(chosen.join(","));
-            }
-        </script>
-
         <h4>Booking</h4>
         <hr />
         @Html.ValidationSummary(True, "", New With {.class = "text-danger"})
         @Html.HiddenFor(Function(model) model.BookingId)
         @Html.HiddenFor(Function(model) model.ChosenSeatsCsv)
+        @Html.HiddenFor(Function(model) model.Amount)
 
         <div Class="form-group">
-            <table>
+            <table id="seatMap">
                 @For row As Integer = 1 To Model.Venue.NumberOfRows
                     @<tr>
                         @For col As Integer = 1 To Model.Venue.SeatsPerRow
@@ -75,7 +59,7 @@ End Code
                 <tr>
                     <td></td>
                     <td>
-                        <input type="button" value="Accept and Pay" Class="btn btn-default" onclick='$("#paymentForm").toggleClass("hidden")' />
+                        <input id="acceptAndPay" type="button" value="Accept and Pay" Class="btn btn-default" onclick='$("#paymentForm").toggleClass("hidden")' />
                     </td>
                 </tr>
             </table>
@@ -87,6 +71,7 @@ End Code
                     <td>Card number:</td>
                     <td>
                         @Html.EditorFor(Function(model) model.CreditCardNumber, New With {.autocomplete = "off"})
+                        @Html.ValidationMessageFor(Function(model) model.CreditCardNumber)
                     </td>
                 </tr>
                 <tr>
@@ -100,6 +85,7 @@ End Code
                     <td>Security code:</td>
                     <td>
                         @Html.PasswordFor(Function(model) model.CvvNumber, New With {.autocomplete = "off"})
+                        @Html.ValidationMessageFor(Function(model) model.CvvNumber)
                     </td>
                 </tr>
                 <tr>
@@ -115,10 +101,34 @@ End Code
     </div>
 End Using
 
-                            <div>
+<div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @Section Scripts
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script language="javascript">
+        function CollectNewChosenSeats() {
+            var price = 0.0;
+            var chosen = [];
+            $("span").each(function () {
+                if ($(this).hasClass("chosen") && $(this).attr("price") != null) {
+                    chosen.push($(this).attr('id'));
+                    price += parseFloat($(this).attr('price'));
+                }
+            });
+
+            $("#chosenPrice").html("£" + price.toFixed(2));
+            $("input[type=hidden][name=ChosenSeatsCsv]").val(chosen.join(","));
+            $("input[type=hidden][name=Amount]").val(price.toFixed(2));
+            $("#acceptAndPay").prop('disabled', chosen.length == 0);
+
+            if (chosen.length == 0) {
+                $("#paymentForm").addClass("hidden");
+            }
+        }
+
+        CollectNewChosenSeats();
+    </script>
 End Section

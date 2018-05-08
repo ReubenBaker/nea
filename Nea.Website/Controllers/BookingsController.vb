@@ -1,5 +1,6 @@
 ﻿Imports System.Data.Entity
 Imports System.Net
+Imports System.Security.Cryptography
 Imports System.Web.Http
 
 Namespace Controllers
@@ -76,24 +77,53 @@ Namespace Controllers
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         <HttpPost()>
         <ValidateAntiForgeryToken()>
-        Function Edit2(<Bind(Include:="BookingId,ChosenSeatsCsv")> ByVal bookingViewModel As BookingViewModel) As ActionResult
-            Dim chosenSeats As List(Of String) = bookingViewModel.ChosenSeatsCsv.Split(",").ToList()
+        Function Edit2(<Bind(Include:="BookingId,ChosenSeatsCsv,CreditCardNumber,CvvNumber,ExpiryMonth,ExpiryYear,Amount")> ByVal bookingViewModel As BookingViewModel) As ActionResult
+            If Not bookingViewModel.ChosenSeatsCsv Is Nothing Then
+                Dim chosenSeats As List(Of String) = bookingViewModel.ChosenSeatsCsv.Split(",").ToList()
 
-            If chosenSeats.Any() Then
-                ' Add newly chosen seats to the booking
-                Dim bookingSeats As List(Of BookingSeat) = chosenSeats _
-                    .Select(Function(x) x.Split("-")) _
-                    .Select(Function(x) New BookingSeat With {
-                        .BookingId = bookingViewModel.BookingId,
-                        .Row = x(0),
-                        .NumberInRow = x(1)
-                        }) _
-                    .ToList()
-                db.Seats.AddRange(bookingSeats)
-                db.SaveChanges()
+                If chosenSeats.Any() Then
+                    ' Add newly chosen seats to the booking
+                    Dim bookingSeats As List(Of BookingSeat) = chosenSeats _
+                        .Select(Function(x) x.Split("-")) _
+                        .Select(Function(x) New BookingSeat With {
+                            .BookingId = bookingViewModel.BookingId,
+                            .Row = x(0),
+                            .NumberInRow = x(1)
+                            }) _
+                        .ToList()
+                    db.Seats.AddRange(bookingSeats)
+                    Dim booking As Booking = db.Bookings.Find(bookingViewModel.BookingId)
+                    booking.Payments.Add(New Payment With {
+                                         .Amount = bookingViewModel.Amount,
+                                         .CreditCardNumber = Encrypt(bookingViewModel.CreditCardNumber),
+                                         .CvvNumber = Encrypt(bookingViewModel.CvvNumber),
+                                         .ExpiryDate = New DateTime(bookingViewModel.ExpiryYear, bookingViewModel.ExpiryMonth, 1).AddMonths(1).AddDays(-1)
+                                         })
+                    db.SaveChanges()
+                End If
             End If
 
             Return RedirectToAction("Edit", New With {.id = bookingViewModel.BookingId})
+        End Function
+
+        Private TripleDes As New TripleDESCryptoServiceProvider
+
+        ' From https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/walkthrough-encrypting-and-decrypting-strings
+        Public Function Encrypt(ByVal plaintext As String) As String
+            ' Convert the plaintext string to a byte array.
+            Dim plaintextBytes() As Byte = Encoding.Unicode.GetBytes(plaintext)
+
+            ' Create the stream.
+            Dim ms As New IO.MemoryStream
+            ' Create the encoder to write to the stream.
+            Dim encStream As New CryptoStream(ms, TripleDes.CreateEncryptor(), CryptoStreamMode.Write)
+
+            ' Use the crypto stream to write the byte array to the stream.
+            encStream.Write(plaintextBytes, 0, plaintextBytes.Length)
+            encStream.FlushFinalBlock()
+
+            ' Convert the encrypted stream to a printable string.
+            Return Convert.ToBase64String(ms.ToArray)
         End Function
 
         ' GET: Bookings/Delete/5

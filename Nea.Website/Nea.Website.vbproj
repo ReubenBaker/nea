@@ -266,6 +266,10 @@
       <DependentUpon>201804242042124_ChangeBookingSeatRowFromStringToInteger.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201804242042124_ChangeBookingSeatRowFromStringToInteger.vb" />
+    <Compile Include="Migrations\201805082104460_AddPaymentCardDetails.Designer.vb">
+      <DependentUpon>201805082104460_AddPaymentCardDetails.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805082104460_AddPaymentCardDetails.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\BookingSeat.vb" />
     <Compile Include="Models\BookingViewModel.vb" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804242042124_ChangeBookingSeatRowFromStringToInteger.resx">
       <DependentUpon>201804242042124_ChangeBookingSeatRowFromStringToInteger.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805082104460_AddPaymentCardDetails.resx">
+      <DependentUpon>201805082104460_AddPaymentCardDetails.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
