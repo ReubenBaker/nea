@@ -1,6 +1,13 @@
 ﻿@ModelType Nea.Website.BookingViewModel
 @Code
     ViewData("Title") = "Edit"
+
+    Dim months As List(Of Integer) = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}.ToList()
+    Dim years As List(Of Integer) = New List(Of Integer)
+    For year As Integer = DateTime.Now.Year To DateTime.Now.Year + 3
+        years.Add(year)
+    Next
+
 End Code
 
 <h2>Edit</h2>
@@ -77,25 +84,22 @@ End Code
         <div id="paymentForm" Class="form-group hidden">
             <table>
                 <tr>
-                    <td>Credit card number:</td>
+                    <td>Card number:</td>
                     <td>
-                        <input id="creditCardNumber" name="creditCardNumber" required="required" type="text" placeholder="Card number" pattern="\d{4} \d{4} \d{4} \d{4}" maxlength="19" />
-                    </td>
-                    <td>
-                        @Html.EditorFor(Function(model) model.CreditCardNumber)
+                        @Html.EditorFor(Function(model) model.CreditCardNumber, New With {.autocomplete = "off"})
                     </td>
                 </tr>
                 <tr>
                     <td>Expiry Date (MM/YYYY):</td>
                     <td>
-                        @Html.EditorFor(Function(model) model.ExpiryMonth)
-                        @Html.EditorFor(Function(model) model.ExpiryYear)
+                        @Html.DropDownListFor(Function(model) model.ExpiryMonth, months.Select(Function(i) New SelectListItem() With {.Text = i.ToString(), .Value = i}))
+                        @Html.DropDownListFor(Function(model) model.ExpiryYear, years.Select(Function(i) New SelectListItem() With {.Text = i.ToString(), .Value = i}))
                     </td>
                 </tr>
                 <tr>
                     <td>Security code:</td>
                     <td>
-                        @Html.PasswordFor(Function(model) model.CvvNumber)
+                        @Html.PasswordFor(Function(model) model.CvvNumber, New With {.autocomplete = "off"})
                     </td>
                 </tr>
                 <tr>
