@@ -25,7 +25,6 @@
                     <li>@Html.ActionLink("Bands", "Index", "Bands")</li>
                     <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
                     <li>@Html.ActionLink("Concerts", "Index", "Concerts")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

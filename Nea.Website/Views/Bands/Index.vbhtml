@@ -3,8 +3,8 @@
     ViewData("Title") = "Index"
 End Code
 
-<h2>Index</h2>
-
+<h2>Bands</h2>
+@* Only displays create button if the user is an admin *@
 <p>
     @If User.IsInRole("admin") Then
         @Html.ActionLink("Create New", "Create")
@@ -23,6 +23,7 @@ End Code
             <td>
                 @Html.DisplayFor(Function(modelItem) item.Name)
             </td>
+            @* Displays buttons for details, with edit and delete if the user is an admin *@
             <td>
                 @Html.ActionLink("Details", "Details", New With {.id = item.Id})
                 @If User.IsInRole("admin") Then

@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel.DataAnnotations
-
+'Defines data types
 Public Class Venue
     Inherits NamedEntity
 

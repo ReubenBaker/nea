@@ -56,18 +56,9 @@ End Code
         <dd>
             @Html.DisplayFor(Function(model) model.BandCPrice)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(Function(model) model.Timestamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(Function(model) model.Timestamp)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", New With { .id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", New With {.id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

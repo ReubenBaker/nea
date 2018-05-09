@@ -399,6 +399,7 @@
     <Content Include="Views\Bookings\Details.vbhtml" />
     <Content Include="Views\Bookings\Edit.vbhtml" />
     <Content Include="Views\Bookings\Index.vbhtml" />
+    <Content Include="Views\Bookings\Confirmation.vbhtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
@@ -422,7 +423,6 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Views\_ViewStart.vbhtml" />
-    <Content Include="Views\Home\About.vbhtml" />
     <Content Include="Views\Home\Contact.vbhtml" />
     <Content Include="Views\Home\Index.vbhtml" />
     <Content Include="Views\Shared\Error.vbhtml" />

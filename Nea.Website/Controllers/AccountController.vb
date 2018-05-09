@@ -102,8 +102,7 @@ Public Class AccountController
 
         ' The following code protects for brute force attacks against the two factor codes. 
         ' If a user enters incorrect codes for a specified amount of time then the user account 
-        ' will be locked out for a specified amount of time. 
-        ' You can configure the account lockout settings in IdentityConfig
+        ' will be locked out for a specified amount of time.
         Dim result = Await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent := model.RememberMe, rememberBrowser := model.RememberBrowser)
         Select Case result
             Case SignInStatus.Success

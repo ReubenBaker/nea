@@ -30,6 +30,7 @@ Namespace Controllers
             Return View()
         End Function
 
+        'Adds a band to the database
         ' POST: Bands/Create
         'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -45,7 +46,7 @@ Namespace Controllers
             Return View(band)
         End Function
 
-        ' GET: Bands/Edit/5
+        'Checks that their is a band id
         <Authorize(Roles:="admin")>
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
@@ -66,7 +67,8 @@ Namespace Controllers
         <Authorize(Roles:="admin")>
         Function Edit(<Bind(Include:="Id,Name")> ByVal band As Band) As ActionResult
             If ModelState.IsValid Then
-                db.Entry(band).State = EntityState.Modified
+                Dim originalBand As Band = db.Bands.Find(band.Id)
+                originalBand.Name = band.Name
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If

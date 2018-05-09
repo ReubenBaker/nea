@@ -17,15 +17,6 @@ End Code
         <dd>
             @Html.DisplayFor(Function(model) model.BookingMadeUtc)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(Function(model) model.Timestamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(Function(model) model.Timestamp)
-        </dd>
-
     </dl>
     @Using (Html.BeginForm())
         @Html.AntiForgeryToken()

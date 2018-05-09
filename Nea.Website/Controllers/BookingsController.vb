@@ -16,6 +16,7 @@ Namespace Controllers
             Return View(bookings.ToList())
         End Function
 
+        'Checks that there is a booking id and if the booking is empty
         ' GET: Bookings/Details/5
         Function Details(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
@@ -29,6 +30,7 @@ Namespace Controllers
         End Function
 
         ' GET: Bookings/Create
+        'Creates a booking
         Function Create(ByVal concertId As Integer) As ActionResult
             Dim booking As New Booking With {
                 .Id = 0,
@@ -48,6 +50,7 @@ Namespace Controllers
         End Function
 
         ' GET: Bookings/Edit/5
+        'Edits the contents of a booking
         Function Edit(ByVal id As Integer?) As ActionResult
             If IsNothing(id) Then
                 Return New HttpStatusCodeResult(HttpStatusCode.BadRequest)
@@ -75,6 +78,7 @@ Namespace Controllers
         ' POST: Bookings/Edit/5
         'To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         'more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        'adds the payment information to the booking
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         Function Edit2(<Bind(Include:="BookingId,ChosenSeatsCsv,CreditCardNumber,CvvNumber,ExpiryMonth,ExpiryYear,Amount")> ByVal bookingViewModel As BookingViewModel) As ActionResult
@@ -99,16 +103,32 @@ Namespace Controllers
                                          .CvvNumber = Encrypt(bookingViewModel.CvvNumber),
                                          .ExpiryDate = New DateTime(bookingViewModel.ExpiryYear, bookingViewModel.ExpiryMonth, 1).AddMonths(1).AddDays(-1)
                                          })
+
                     db.SaveChanges()
                 End If
             End If
 
-            Return RedirectToAction("Edit", New With {.id = bookingViewModel.BookingId})
+            Return RedirectToAction("Confirmation", New With {.id = bookingViewModel.BookingId})
+        End Function
+
+        ' GET: Bookings/Confirmation/5
+        Function Confirmation(ByVal id As Integer?) As ActionResult
+            If IsNothing(id) Then
+                Return RedirectToAction("Index", "Concerts")
+            End If
+
+            Dim booking As Booking = db.Bookings.Find(id)
+            If IsNothing(booking) Then
+                Return HttpNotFound()
+            End If
+
+            Return View("Confirmation", booking)
         End Function
 
         Private TripleDes As New TripleDESCryptoServiceProvider
 
-        ' From https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/walkthrough-encrypting-and-decrypting-strings
+        'From https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/strings/walkthrough-encrypting-and-decrypting-strings
+        'An encryption function to be used to encrypt payment information
         Public Function Encrypt(ByVal plaintext As String) As String
             ' Convert the plaintext string to a byte array.
             Dim plaintextBytes() As Byte = Encoding.Unicode.GetBytes(plaintext)

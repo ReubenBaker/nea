@@ -36,7 +36,7 @@ Namespace Controllers
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         <Authorize(Roles:="admin")>
-        Function Create(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
+        Function Create(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
                 db.Venues.Add(venue)
                 db.SaveChanges()
@@ -64,9 +64,15 @@ Namespace Controllers
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         <Authorize(Roles:="admin")>
-        Function Edit(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name,Timestamp")> ByVal venue As Venue) As ActionResult
+        Function Edit(<Bind(Include:="Id,NumberOfRows,SeatsPerRow,PriceBandAFirstRow,PriceBandBFirstRow,PriceBandCFirstRow,Name")> ByVal venue As Venue) As ActionResult
             If ModelState.IsValid Then
-                db.Entry(venue).State = EntityState.Modified
+                Dim originalVenue As Venue = db.Venues.Find(venue.Id)
+                originalVenue.NumberOfRows = venue.NumberOfRows
+                originalVenue.SeatsPerRow = venue.SeatsPerRow
+                originalVenue.PriceBandAFirstRow = venue.PriceBandAFirstRow
+                originalVenue.PriceBandBFirstRow = venue.PriceBandBFirstRow
+                originalVenue.PriceBandCFirstRow = venue.PriceBandCFirstRow
+                originalVenue.Name = venue.Name
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If

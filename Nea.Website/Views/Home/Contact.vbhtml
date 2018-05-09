@@ -1,8 +1,9 @@
 ﻿@Code
-    ViewData("Title") = "Contact"
+    ViewData("Title") = "Contact us"
+    ViewData("Message") = "Details:"
 End Code
 
-<h2>@ViewData("Title").</h2>
+<h2>@ViewData("Title")</h2>
 <h3>@ViewData("Message")</h3>
 
 <address>

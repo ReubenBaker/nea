@@ -39,7 +39,7 @@ Namespace Controllers
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         <Authorize(Roles:="admin")>
-        Function Create(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
+        Function Create(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
                 db.Concerts.Add(concert)
                 db.SaveChanges()
@@ -71,9 +71,15 @@ Namespace Controllers
         <HttpPost()>
         <ValidateAntiForgeryToken()>
         <Authorize(Roles:="admin")>
-        Function Edit(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice,Timestamp")> ByVal concert As Concert) As ActionResult
+        Function Edit(<Bind(Include:="Id,Time,BandId,VenueId,BandAPrice,BandBPrice,BandCPrice")> ByVal concert As Concert) As ActionResult
             If ModelState.IsValid Then
-                db.Entry(concert).State = EntityState.Modified
+                Dim originalConcert As Concert = db.Concerts.Find(concert.Id)
+                originalConcert.Time = concert.Time
+                originalConcert.VenueId = concert.VenueId
+                originalConcert.BandId = concert.BandId
+                originalConcert.BandAPrice = concert.BandAPrice
+                originalConcert.BandBPrice = concert.BandBPrice
+                originalConcert.BandCPrice = concert.BandCPrice
                 db.SaveChanges()
                 Return RedirectToAction("Index")
             End If
@@ -108,6 +114,7 @@ Namespace Controllers
         End Function
 
         ' GET: Concerts/Book/5
+        <Authorize>
         Function Book(ByVal id As Integer) As ActionResult
             Return RedirectToAction("Create", "Bookings", New With {.concertId = id})
         End Function

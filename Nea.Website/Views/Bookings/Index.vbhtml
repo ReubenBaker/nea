@@ -10,9 +10,6 @@ End Code
         <th>
             @Html.DisplayNameFor(Function(model) model.BookingMadeUtc)
         </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Timestamp)
-        </th>
         <th></th>
     </tr>
 
@@ -21,13 +18,11 @@ End Code
         <td>
             @Html.DisplayFor(Function(modelItem) item.BookingMadeUtc)
         </td>
+        @* Displays edit, delete and details buttons *@
         <td>
-            @Html.DisplayFor(Function(modelItem) item.Timestamp)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", New With {.id = item.Id }) |
-            @Html.ActionLink("Details", "Details", New With {.id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", New With {.id = item.Id })
+            @Html.ActionLink("Edit", "Edit", New With {.id = item.Id}) |
+            @Html.ActionLink("Details", "Details", New With {.id = item.Id}) |
+            @Html.ActionLink("Delete", "Delete", New With {.id = item.Id})
         </td>
     </tr>
 Next

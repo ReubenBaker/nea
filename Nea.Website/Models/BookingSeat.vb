@@ -1,6 +1,6 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
-
+'Defines data types
 Public Class BookingSeat
     Inherits Entity
 

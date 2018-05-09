@@ -3,7 +3,7 @@
     ViewData("Title") = "Index"
 End Code
 
-<h2>Index</h2>
+<h2>Venues</h2>
 
 <p>
     @If User.IsInRole("admin") Then
@@ -30,9 +30,6 @@ End Code
         <th>
             @Html.DisplayNameFor(Function(model) model.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(Function(model) model.Timestamp)
-        </th>
         <th></th>
     </tr>
 
@@ -55,9 +52,6 @@ End Code
             </td>
             <td>
                 @Html.DisplayFor(Function(modelItem) item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(Function(modelItem) item.Timestamp)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", New With {.id = item.Id})
